@@ -10,7 +10,7 @@ load(Env) ->
   emqttd:hook('message.publish', fun ?MODULE:on_message_publish/2, [Env]).
 
 unload() ->
-  emqttd:unhook('client.connected', fun ?MODULE:on_client_connected/3),
+  emqttd:unhook('message.publish', fun ?MODULE:message.publish/2).
 
 
 on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/add", _/binary>>}, _) ->
