@@ -10,7 +10,7 @@ load(Env) ->
   emqttd:hook('message.publish', fun ?MODULE:on_message_publish/2, [Env]).
 
 unload() ->
-  emqttd:unhook('message.publish', fun ?MODULE:message.publish/2).
+  emqttd:unhook('message.publish', fun ?MODULE:on_message_publish/2).
 
 
 on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/add", _/binary>>}, _) ->
@@ -19,7 +19,7 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/add", _/binary>>}, _
     [ClientId | [Topic|Ignore]] = string:tokens(PayloadList, Separator),
     if
        (length(Ignore) == 0) and (length(ClientId) > 0) and (length(Topic) > 0) ->
-         emqttd:subscribe(bin(Topic), bin(ClientId), [{qos, 1}]);
+         emqttd:subscribe(list_to_binary(Topic), list_to_binary(ClientId), [{qos, 1}]);
        true->
          ok
     end,
@@ -32,7 +32,7 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/remove", _/binary>>}
     [ClientId | [Topic|Ignore]] = string:tokens(PayloadList, Separator),
     if
        (length(Ignore) == 0) and (length(ClientId) > 0) and (length(Topic) > 0) ->
-         emqttd:unsubscribe(bin(Topic), bin(ClientId));
+         emqttd:unsubscribe(list_to_binary(Topic), list_to_binary(ClientId));
        true->
          ok
     end,
@@ -46,7 +46,7 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$BW/add", _/binary>>}, _)
     [ClientId | [Topic|Ignore]] = string:tokens(PayloadList, Separator),
     if
        (length(Ignore) == 0) and (length(ClientId) > 0) and (length(Topic) > 0) ->
-         emqttd:subscribe(bin(Topic), bin(ClientId), [{qos, 1}]);
+         emqttd:subscribe(list_to_binary(Topic), list_to_binary(ClientId), [{qos, 1}]);
        true->
          ok
     end,
@@ -59,7 +59,7 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$BW/remove", _/binary>>},
     [ClientId | [Topic|Ignore]] = string:tokens(PayloadList, Separator),
     if
        (length(Ignore) == 0) and (length(ClientId) > 0) and (length(Topic) > 0) ->
-         emqttd:unsubscribe(bin(Topic), bin(ClientId));
+         emqttd:unsubscribe(list_to_binary(Topic), list_to_binary(ClientId));
        true->
          ok
     end,
