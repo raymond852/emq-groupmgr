@@ -9,6 +9,9 @@
 load(Env) ->
   emqttd:hook('message.publish', fun ?MODULE:on_message_publish/2, [Env]).
 
+unload() ->
+  emqttd:unhook('client.connected', fun ?MODULE:on_client_connected/3),
+
 
 on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/add", _/binary>>}, _) ->
     PayloadList = binary_to_list(Message#mqtt_message.payload),
@@ -62,3 +65,6 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$BW/remove", _/binary>>},
     end,
     Message#mqtt_message.payload = <<"ok">>,
     {ok, Message};
+
+on_message_publish(Message, _) ->
+    {ok, Message}.
