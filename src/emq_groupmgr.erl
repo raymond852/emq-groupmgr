@@ -23,7 +23,6 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/add", _/binary>>}, _
        true->
          ok
     end,
-    Message#mqtt_message.payload = <<"ok">>,
     {ok, Message};
 
 on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/remove", _/binary>>}, _) ->
@@ -36,7 +35,6 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$GRP/remove", _/binary>>}
        true->
          ok
     end,
-    Message#mqtt_message.payload = <<"ok">>,
     {ok, Message};
 
 
@@ -50,7 +48,6 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$BW/add", _/binary>>}, _)
        true->
          ok
     end,
-    Message#mqtt_message.payload = <<"ok">>,
     {ok, Message};
 
 on_message_publish(Message = #mqtt_message{topic = <<"$$BW/remove", _/binary>>}, _) ->
@@ -63,7 +60,6 @@ on_message_publish(Message = #mqtt_message{topic = <<"$$BW/remove", _/binary>>},
        true->
          ok
     end,
-    Message#mqtt_message.payload = <<"ok">>,
     {ok, Message};
 
 on_message_publish(Message, _) ->
