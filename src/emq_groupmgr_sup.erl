@@ -12,4 +12,4 @@ start_link() ->
     supervisor:start_link({local, ?MODULE}, ?MODULE, []).
 
 init([]) ->
-    {ok, { {one_for_one, 0, 1}, []} }.ato
+    {ok, { {one_for_one, 0, 1}, []} }.
