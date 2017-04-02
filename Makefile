@@ -2,11 +2,6 @@ PROJECT = emq_groupmgr
 PROJECT_DESCRIPTION = Group management
 PROJECT_VERSION = 2.1.0
 
-DEPS = eredis ecpool
-
-dep_eredis = git https://github.com/wooga/eredis master
-dep_ecpool = git https://github.com/emqtt/ecpool master
-
 BUILD_DEPS = emqttd cuttlefish
 dep_emqttd = git https://github.com/emqtt/emqttd master
 dep_cuttlefish = git https://github.com/emqtt/cuttlefish
